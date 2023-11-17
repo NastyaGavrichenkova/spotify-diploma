@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "spotify-diploma"
+version = "0.1.0"
+description = ""
+authors = ["NastyaGavrichenkova <lady_markos@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pytest = "^7.4.3"
+selene = "^2.0.0rc4"
+allure-pytest = "^2.13.2"
+querystring = "^0.1.0"
+requests = "^2.31.0"
+spotipy = "^2.23.0"
+curlify = "^2.2.1"
+jsonschema = "^4.19.2"
+appium-python-client = "^3.1.0"
+pydantic-settings = "^2.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
