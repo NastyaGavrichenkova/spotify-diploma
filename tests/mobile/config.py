@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 
 class AppConfig(BaseSettings):
-    context: Literal['local_emulator', 'bstack'] = 'local_emulator'
+    context: Literal['local_emulator', 'bstack'] = 'bstack'
 
     remote_url: str = ''
     app: str = ''
