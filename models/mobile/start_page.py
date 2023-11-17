@@ -19,6 +19,6 @@ class StartPage:
             browser.element((AppiumBy.ID, 'com.spotify.music:id/login_button')).click()
             time.sleep(3)
 
-        if browser.element((AppiumBy.ID, 'com.spotify.music:id/design_bottom_sheet')).should(be.visible):
+        if browser.element((AppiumBy.ID, 'com.spotify.music:id/design_bottom_sheet')).matching(be.visible):
             with allure.step('Close bottom sheet'):
                 browser.element((AppiumBy.ID, 'com.spotify.music:id/later_button')).click()
