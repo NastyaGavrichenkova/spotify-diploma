@@ -12,7 +12,7 @@ app_config = AppConfig(_env_file=abs_path_to_file(f'.env.{AppConfig().context}')
 
 @pytest.fixture(scope='function', autouse=True)
 def mobile_management():
-    with allure.step('Init ap session'):
+    with allure.step('Init app session'):
         browser.config.driver = webdriver.Remote(
             app_config.remote_url,
             options=app_config.to_driver_options()
