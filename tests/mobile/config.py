@@ -25,7 +25,7 @@ class AppConfig(BaseSettings):
 
     @property
     def bstack_creds(self):
-        load_dotenv(abs_path_to_file('../../.env.bstack_credentials'))
+        load_dotenv(abs_path_to_file('.env.bstack_credentials'))
         self.bstack_userName = os.getenv('bstack_userName')
         self.bstack_accessKey = os.getenv('bstack_accessKey')
         return {
