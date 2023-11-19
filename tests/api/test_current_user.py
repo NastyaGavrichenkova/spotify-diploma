@@ -12,8 +12,8 @@ user = User()
 
 @allure.tag('API')
 @allure.label('owner', 'ganastasia')
-@allure.feature('Current user')
-@allure.story('User Info')
+@allure.feature('User Info')
+@allure.story('Current user')
 @allure.severity(Severity.CRITICAL)
 @allure.title('Validate schema of user information')
 def test_get_current_user_information(get_access_token):
@@ -35,8 +35,8 @@ def test_get_current_user_information(get_access_token):
 
 @allure.tag('API')
 @allure.label('owner', 'ganastasia')
-@allure.feature('Current user')
-@allure.story('Library')
+@allure.feature('Library')
+@allure.story('Current user')
 @allure.severity(Severity.CRITICAL)
 @allure.title('Add track to the library')
 def test_add_track(get_access_token):
@@ -63,8 +63,8 @@ def test_add_track(get_access_token):
 
 @allure.tag('API')
 @allure.label('owner', 'ganastasia')
-@allure.feature('Current user')
-@allure.story('Library')
+@allure.feature('Library')
+@allure.story('Current user')
 @allure.severity(Severity.CRITICAL)
 @allure.title('Create new playlist')
 def test_create_playlist(get_access_token):
