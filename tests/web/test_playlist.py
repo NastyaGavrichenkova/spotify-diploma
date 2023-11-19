@@ -5,6 +5,10 @@ from models.web.login_page import LoginPage
 from models.web.main_page import MainPage
 from data.user import User
 from data.tracks_artists import Track
+from tests.marks import layer
+
+pytestmark = [
+    layer("UI")]
 
 main_page = MainPage()
 login_page = LoginPage()

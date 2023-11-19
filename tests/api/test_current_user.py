@@ -4,6 +4,10 @@ import jsonschema
 from data.tracks_artists import Track
 from data.user import User
 from utils.helper import CustomSession, load_schema
+from tests.marks import layer
+
+pytestmark = [
+    layer("API")]
 
 spotify_session = CustomSession('https://api.spotify.com/v1')
 track = Track()

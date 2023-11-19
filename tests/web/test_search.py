@@ -4,6 +4,10 @@ from selene import browser, have
 from models.web.login_page import LoginPage
 from models.web.main_page import MainPage
 from data.tracks_artists import Track, Artist
+from tests.marks import layer
+
+pytestmark = [
+    layer("UI")]
 
 
 main_page = MainPage()

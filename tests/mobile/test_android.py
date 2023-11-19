@@ -7,6 +7,10 @@ from data.tracks_artists import Artist, Track
 from models.mobile.search_tab import SearchTab
 from models.mobile.start_page import StartPage
 from models.mobile.library_tab import LibraryTab
+from tests.marks import layer
+
+pytestmark = [
+    layer("Android")]
 
 start_page = StartPage()
 search_tab = SearchTab()
