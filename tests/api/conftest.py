@@ -1,6 +1,7 @@
 import base64
 import time
 
+import allure
 from selene import browser, be, command
 import pytest
 from spotipy.oauth2 import SpotifyOAuth
@@ -8,23 +9,22 @@ import requests
 from data.user import User
 from config import Config
 from utils import attach
+from models.web.login_page import LoginPage
 
 user = User()
 config = Config()
+login_page = LoginPage()
 
 
 @pytest.fixture(scope='session', autouse=True)
-def browser_management(request):
-    browser.config.driver = config.to_browser_driver_options
+def browser_management():
+    browser.config.driver = config.to_browser_driver_options()
 
     if config.web_context == 'remote':
         browser.config.driver = config.browser_remote_driver()
 
-    browser.config.base_url = 'https://open.spotify.com'
-
     yield
 
-    attach.screenshot(browser)
     browser.quit()
 
 
@@ -39,11 +39,12 @@ def get_access_token(browser_management):
                        scope=scope
                        ).get_authorize_url()
 
-    browser.open(url)
+    with allure.step('Open browser and authorization for getting access token'):
+        browser.open(url)
+    login_page.authorization(user.login, user.password)
 
-    browser.element('#login-username').type(user.login)
-    browser.element('#login-password').type(user.password).press_enter()
     time.sleep(5)
+
     if browser.element("[data-testid='auth-accept']").matching(be.visible):
         browser.element("[data-testid='auth-accept']").perform(command.js.scroll_into_view).click()
     browser.switch_to_next_tab()

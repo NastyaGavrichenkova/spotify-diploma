@@ -9,7 +9,7 @@ config = Config()
 
 @pytest.fixture(scope='session', autouse=True)
 def setup_browser(request):
-    browser.config.driver = config.to_browser_driver_options
+    browser.config.driver = config.to_browser_driver_options()
 
     if config.web_context == 'remote':
         browser.config.driver = config.browser_remote_driver()
