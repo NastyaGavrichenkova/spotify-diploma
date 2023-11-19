@@ -9,6 +9,7 @@ import requests
 from dotenv import load_dotenv
 from data.user import User
 from utils.helper import abs_path_to_file
+import os
 
 user = User()
 load_dotenv(abs_path_to_file('.env.selenoid_credentials'))
@@ -26,12 +27,12 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope='session', autouse=True)
 def browser_management(request):
-    driver_options = webdriver.ChromeOptions()
 
-    """
     browser_version = request.config.getoption('--browser_version')
     browser_version = browser_version if browser_version != '' else DEFAULT_BROWSER_VERSION
     driver_options = webdriver.ChromeOptions()
+
+    browser.config.driver_options = driver_options
 
     selenoid_capabilities = {
         'browserName': 'chrome',
@@ -46,12 +47,10 @@ def browser_management(request):
     login = os.getenv('SELENOID_LOGIN')
     password = os.getenv('SELENOID_PASSWORD')
 
-    driver = webdriver.Remote(
+    browser.config.driver = webdriver.Remote(
         command_executor=f'https://{login}:{password}@selenoid.autotests.cloud/wd/hub',
         options=driver_options
     )
-    """
-    browser.config.driver = driver_options
 
     yield
 

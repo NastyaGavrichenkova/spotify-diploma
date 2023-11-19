@@ -5,11 +5,14 @@ from pydantic_settings import BaseSettings
 from appium.options.android import UiAutomator2Options
 from utils.helper import abs_path_to_file
 from dotenv import load_dotenv
+from selenium import webdriver
 
 
-class AppConfig(BaseSettings):
-    context: Literal['local_emulator', 'bstack'] = 'local_emulator'
+class Config(BaseSettings):
+    app_context: Literal['local_emulator', 'bstack'] = 'bstack'
+    web_context: Literal['local', 'remote'] = 'remote'
 
+    # App params
     remote_url: str = ''
     app: str = ''
     appWaitActivity: str = ''
@@ -19,6 +22,52 @@ class AppConfig(BaseSettings):
     bstack_accessKey: str = ''
     deviceName: str = ''
     platformVersion: str = ''
+
+    # WEB param
+    browser: Literal['chrome', 'firefox'] = 'chrome'
+
+    @property
+    def get_selenoid_capabilities(self):
+        capabilities = {
+            'browserName': 'chrome',
+            'browserVersion': '100.0',
+            'selenoid:options': {
+                'enableVNC': True,
+                'enableVideo': True
+            }
+        }
+
+        return capabilities
+
+    def selenoid_auth_link(self):
+        load_dotenv(abs_path_to_file('.env.selenoid_credentials'))
+        login = os.getenv('SELENOID_LOGIN')
+        password = os.getenv('SELENOID_PASSWORD')
+        link = f'https://{login}:{password}@selenoid.autotests.cloud/wd/hub'
+
+        return link
+
+    def to_browser_driver_options(self):
+        if self.browser == 'chrome':
+            options = webdriver.ChromeOptions()
+
+        elif self.browser == 'firefox':
+            options = webdriver.FirefoxOptions()
+
+        return options
+
+    def browser_remote_driver(self):
+        if self.web_context == 'remote':
+            options = self.to_browser_driver_options()
+            selenoid_capabilities = self.get_selenoid_capabilities
+            options.capabilities.update(selenoid_capabilities)
+
+            driver = webdriver.Remote(
+                command_executor=self.selenoid_auth_link(),
+                options=options
+            )
+
+        return driver
 
     def runs_on_bstack(self):
         return self.app.startswith('bs://')

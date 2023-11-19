@@ -1,15 +1,19 @@
 import pytest
 from selene import browser
-from selenium import webdriver
 
 from utils import attach
+from config import Config
+
+config = Config()
 
 
 @pytest.fixture(autouse=True)
-def setup_browser():
-    driver_options = webdriver.ChromeOptions()
-    # driver_options.add_argument('headless')
-    browser.config.driver_options = driver_options
+def setup_browser(request):
+    browser.config.driver = config.to_browser_driver_options
+
+    if config.web_context == 'remote':
+        browser.config.driver = config.browser_remote_driver()
+
     browser.config.base_url = 'https://open.spotify.com'
 
     yield browser
