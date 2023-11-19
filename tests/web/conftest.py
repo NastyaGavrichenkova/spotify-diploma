@@ -2,14 +2,14 @@ import pytest
 from selene import browser
 
 from utils import attach
-from tests.mobile.config import Config
+from config import Config
 
 config = Config()
 
 
 @pytest.fixture(autouse=True)
-def setup_browser(request):
-    browser.config.driver = config.to_browser_driver_options
+def setup_browser():
+    browser.config.driver_options = config.to_browser_driver_options()
 
     if config.web_context == 'remote':
         browser.config.driver = config.browser_remote_driver()

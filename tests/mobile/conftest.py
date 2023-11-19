@@ -5,7 +5,7 @@ from selene import browser, support
 import allure_commons
 from utils.helper import abs_path_to_file
 from utils import attach
-from tests.mobile.config import Config
+from config import Config
 
 app_config = Config(_env_file=abs_path_to_file(f'.env.{Config().app_context}'))
 

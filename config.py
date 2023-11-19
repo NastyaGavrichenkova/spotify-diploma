@@ -10,7 +10,7 @@ from selenium import webdriver
 
 class Config(BaseSettings):
     app_context: Literal['local_emulator', 'bstack'] = 'bstack'
-    web_context: Literal['local', 'remote'] = 'local'
+    web_context: Literal['local', 'remote'] = 'remote'
 
     # App params
     remote_url: str = ''
