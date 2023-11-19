@@ -7,7 +7,7 @@ from config import Config
 config = Config()
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture(scope='session', autouse=True)
 def setup_browser(request):
     browser.config.driver = config.to_browser_driver_options
 
